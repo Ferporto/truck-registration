@@ -1,8 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using TruckRegistration.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<Context>(options => options
+    .UseSqlServer("Data Source=.;Initial Catalog=TRUCK_REGISTRATION;Integrated Security=False;Connect Timeout=15;Encrypt=False;"));
+
 
 var app = builder.Build();
 
