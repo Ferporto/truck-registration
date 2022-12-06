@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<Context>(options => options
-    .UseSqlServer("Data Source=.;Initial Catalog=TRUCK_REGISTRATION;Integrated Security=False;Connect Timeout=15;Encrypt=False;"));
+    .UseSqlServer("Data Source=.;Initial Catalog=Truck_Registration;Integrated Security=True;"));
 
 
 var app = builder.Build();
