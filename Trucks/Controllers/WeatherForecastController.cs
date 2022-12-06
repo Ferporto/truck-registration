@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TruckRegistration.Controllers;
+namespace TruckRegistration.Trucks.Controllers;
 
 [ApiController]
 [Route("[controller]")]
