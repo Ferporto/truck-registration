@@ -1,6 +1,22 @@
-<body>
-  <app-nav-menu></app-nav-menu>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-</body>
+<div class="content">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span class="title">Cadastro de caminhões</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-drawer-container>
+    <mat-drawer mode="side" [opened]="true">
+      <mat-nav-list class="options">
+        <button matTooltip="Caminhões" [routerLink]="'/trucks'" mat-icon-button>
+          <mat-icon>local_shipping</mat-icon>
+        </button>
+      </mat-nav-list>
+    </mat-drawer>
+
+    <div style="height: 100%;">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-drawer-container>
+</div>
