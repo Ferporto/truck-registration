@@ -15,7 +15,7 @@ namespace TruckRegistration.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LicensePlate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LicensePlate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ManufacturingYear = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

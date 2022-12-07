@@ -29,7 +29,6 @@ namespace TruckRegistration.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LicensePlate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ManufacturingYear")

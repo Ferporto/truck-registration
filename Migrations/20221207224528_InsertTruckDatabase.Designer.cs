@@ -12,7 +12,7 @@ using TruckRegistration.Models;
 namespace TruckRegistration.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221206224257_InsertTruckDatabase")]
+    [Migration("20221207224528_InsertTruckDatabase")]
     partial class InsertTruckDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,6 @@ namespace TruckRegistration.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LicensePlate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ManufacturingYear")

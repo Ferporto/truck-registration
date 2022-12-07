@@ -6,7 +6,7 @@ namespace TruckRegistration.Trucks;
 public class Truck : Entity
 {
     public Guid ModelId { get; set; }
-    public string LicensePlate { get; set; }
+    public string? LicensePlate { get; set; }
     public int ManufacturingYear { get; set; }
 
     public Truck()

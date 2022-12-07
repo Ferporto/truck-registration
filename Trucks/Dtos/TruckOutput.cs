@@ -6,7 +6,7 @@ public class TruckOutput
     public Guid ModelId { get; set; }
     public string ModelName { get; set; }
     public int ModelYear { get; set; }
-    public string LicensePlate { get; set; }
+    public string? LicensePlate { get; set; }
     public int ManufacturingYear { get; set; }
 
     public TruckOutput()
@@ -19,7 +19,7 @@ public class TruckOutput
         LicensePlate = truck.LicensePlate;
         ManufacturingYear = truck.ManufacturingYear;
         ModelId = truckModel.Id;
-        ModelName = truckModel.Name;
+        ModelName = truckModel.Type.ToString().ToUpper() + " " + truckModel.Name;
         ModelYear = truckModel.Year;
     }
 }
