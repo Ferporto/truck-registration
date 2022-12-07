@@ -37,6 +37,8 @@ export class TrucksListComponent implements AfterViewInit {
         right: '0',
         bottom: '0',
       }
+    }).afterClosed().subscribe(() => {
+      this.getTrucks();
     });
   }
 

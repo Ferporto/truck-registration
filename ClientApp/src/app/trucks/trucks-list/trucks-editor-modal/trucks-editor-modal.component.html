@@ -18,9 +18,9 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Modelo</mat-label>
-          <mat-select formControlName="modelId">
+          <mat-select formControlName="modelId" [placeholder]="truckModels.length == 0 ? 'Nenhum modelo cadastrado' : ''">
             <mat-option *ngFor="let truckModel of truckModels" [value]="truckModel.id">
-              {{TruckModelType[truckModel.type].toUpperCase() + ' ' + truckModel.name}}
+              {{TruckModelType[truckModel.type].toUpperCase() + ' ' + truckModel.name + ' - ' + truckModel.year}}
             </mat-option>
           </mat-select>
         </mat-form-field>
