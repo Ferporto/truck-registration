@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TruckRegistration.Models;
 using TruckRegistration.Trucks.Dtos;
+using TruckRegistration.Trucks.Repositories;
 
 namespace TruckRegistration.Trucks.Controllers;
 
@@ -9,20 +10,18 @@ namespace TruckRegistration.Trucks.Controllers;
 [Route("truck-models")]
 public class TruckModelController : ControllerBase
 {
-    private readonly Context _context;
+    private readonly ITruckModelModelRepository _truckModelModelRepository;
 
-    public TruckModelController(Context context)
+    public TruckModelController(ITruckModelModelRepository truckModelModelRepository)
     {
-        _context = context;
+        _truckModelModelRepository = truckModelModelRepository;
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] TruckModelInput input)
     {
         var truckModelToInsert = new TruckModel(input);
-
-        _context.Add(truckModelToInsert);
-        await _context.SaveChangesAsync();
+        await _truckModelModelRepository.CreateAsync(truckModelToInsert);
 
         return Ok();
     }
@@ -30,7 +29,7 @@ public class TruckModelController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetList()
     {
-        var truckModels = await _context.TruckModels.AsNoTracking().ToListAsync();
+        var truckModels = await _truckModelModelRepository.GetAll().ToListAsync();
         var output = truckModels.Select(truckModel => new TruckModelOutput(truckModel));
 
         return Ok(output);
@@ -39,7 +38,7 @@ public class TruckModelController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        var truckModel = await _context.TruckModels.FirstOrDefaultAsync(truckModel => truckModel.Id == id);
+        var truckModel = await _truckModelModelRepository.FirstOrDefaultAsync(truckModel => truckModel.Id == id);
         if (truckModel == null)
         {
             return NotFound();
@@ -53,16 +52,14 @@ public class TruckModelController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] TruckModelInput input)
     {
-        var truckModelToUpdate = await _context.TruckModels.FirstOrDefaultAsync(truckModel => truckModel.Id == id);
+        var truckModelToUpdate = await _truckModelModelRepository.FirstOrDefaultAsync(truckModel => truckModel.Id == id);
         if (truckModelToUpdate == null)
         {
             return NotFound();
         }
 
         truckModelToUpdate.Update(input);
-
-        _context.Update(truckModelToUpdate);
-        await _context.SaveChangesAsync();
+        await _truckModelModelRepository.UpdateAsync(truckModelToUpdate);
 
         return Ok();
     }
@@ -70,14 +67,13 @@ public class TruckModelController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        var truckModelToDelete = await _context.TruckModels.FirstOrDefaultAsync(truckModel => truckModel.Id == id);
+        var truckModelToDelete = await _truckModelModelRepository.FirstOrDefaultAsync(truckModel => truckModel.Id == id);
         if (truckModelToDelete == null)
         {
             return NotFound();
         }
 
-        _context.Remove(truckModelToDelete);
-        await _context.SaveChangesAsync();
+        await _truckModelModelRepository.DeleteAsync(truckModelToDelete);
 
         return Ok();
     }

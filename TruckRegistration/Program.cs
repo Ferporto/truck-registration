@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using TruckRegistration.Models;
+using TruckRegistration.Trucks.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ITruckRepository, TruckRepository>();
+builder.Services.AddScoped<ITruckModelModelRepository, TruckModelModelRepository>();
 
 builder.Services.AddDbContext<Context>(options => options
     .UseSqlServer("Data Source=.;Initial Catalog=Truck_Registration;Integrated Security=True;"));
