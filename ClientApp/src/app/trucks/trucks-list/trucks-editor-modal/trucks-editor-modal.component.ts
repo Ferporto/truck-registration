@@ -23,15 +23,16 @@ export class TrucksEditorModalComponent {
   }
 
   public save(): void {
-    // this.produtoService.adicionarProduto(this.form.getRawValue());
-    this.form.reset();
+    this.matDialogRef.close();
   }
 
   private createForm(): void {
+    const currentYear = Number(new Date().getFullYear());
+
     this.form = this.formBuilder.group({
-      licensePlate: [null, [Validators.required]],
+      licensePlate: [],
       model: [null, [Validators.required]],
-      manufacturingYear: [null, [Validators.required]],
+      manufacturingYear: [currentYear, [Validators.required]],
     });
   }
 }

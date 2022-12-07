@@ -12,7 +12,7 @@ import {TrucksEditorModalComponent} from "./trucks-editor-modal/trucks-editor-mo
 export class TrucksListComponent implements AfterViewInit {
   @ViewChild('TrucksListHeader') private headerTemplate!: TemplateRef<any>;
 
-  public colunas: string[] = ['produto', 'quantidade', 'valorUnitario', 'valorTotal'];
+  public columns: string[] = ['licensePlate', 'modelName', 'modelYear', 'manufacturingYear'];
 
   constructor(private trucksService: TrucksService, private matDialog: MatDialog) {
   }

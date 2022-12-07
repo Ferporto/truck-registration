@@ -23,15 +23,17 @@ export class TrucksModelsEditorModalComponent {
   }
 
   public save(): void {
-    // this.produtoService.adicionarProduto(this.form.getRawValue());
-    this.form.reset();
+    this.matDialogRef.close();
   }
 
   private createForm(): void {
+    const currentYear = Number(new Date().getFullYear());
+    const nextYear = currentYear + 1;
+
     this.form = this.formBuilder.group({
       name: [null, [Validators.required]],
       type: [null, [Validators.required]],
-      year: [null, [Validators.required]],
+      year: [null, [Validators.required, Validators.min(currentYear), Validators.max(nextYear)]],
     });
   }
 }
