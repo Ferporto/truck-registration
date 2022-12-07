@@ -16,14 +16,24 @@
           <input matInput formControlName="name" [required]="true">
         </mat-form-field>
 
-        <mat-form-field>
+
+        <mat-form-field appearance="fill">
           <mat-label>Tipo</mat-label>
-          <input matInput formControlName="type" [required]="true">
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let type of types" [value]="type">
+              {{TruckModelType[type].toUpperCase()}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
+
+        <mat-form-field appearance="fill">
           <mat-label>Ano</mat-label>
-          <input matInput formControlName="year" type="number" [required]="true">
+          <mat-select formControlName="year">
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{year}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </form>

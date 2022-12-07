@@ -15,6 +15,12 @@ import {TrucksEditorModalComponent} from './trucks-list/trucks-editor-modal/truc
 import {
   TrucksModelsEditorModalComponent
 } from './trucks-models-list/trucks-models-editor-modal/trucks-models-editor-modal.component';
+import {TrucksApiService} from "./api/services/trucks-api.service";
+import {TrucksModelsApiService} from "./api/services/trucks-models-api.service";
+import {MatSelectModule} from "@angular/material/select";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -33,6 +39,9 @@ import {
     MatTabsModule,
     MatTableModule,
     MatButtonModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatDialogModule,
     RouterModule.forChild([
       {
         path: '',
@@ -42,10 +51,12 @@ import {
         path: '**',
         redirectTo: ''
       }
-    ])
+    ]),
+    MatTooltipModule,
   ],
   providers: [
     TrucksService
   ]
 })
-export class TrucksModule { }
+export class TrucksModule {
+}

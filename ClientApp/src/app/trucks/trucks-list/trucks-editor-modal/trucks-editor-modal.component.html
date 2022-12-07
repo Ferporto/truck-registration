@@ -16,9 +16,13 @@
           <input matInput formControlName="licensePlate">
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Modelo</mat-label>
-          <input matInput formControlName="model" [required]="true">
+          <mat-select formControlName="modelId">
+            <mat-option *ngFor="let truckModel of truckModels" [value]="truckModel.id">
+              {{TruckModelType[truckModel.type].toUpperCase() + ' ' + truckModel.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field>

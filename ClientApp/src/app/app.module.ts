@@ -14,6 +14,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {AppComponent} from './app.component';
 import {FetchDataComponent} from './fetch-data/fetch-data.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatTooltipModule,
     MatDialogModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {
         path: '',

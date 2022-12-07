@@ -5,6 +5,7 @@ using TruckRegistration.Trucks.Dtos;
 
 namespace TruckRegistration.Trucks.Controllers;
 
+[ApiController]
 [Route("truck-models")]
 public class TruckModelController : ControllerBase
 {

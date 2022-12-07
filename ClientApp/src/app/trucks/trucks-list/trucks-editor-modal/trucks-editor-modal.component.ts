@@ -1,6 +1,13 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import * as uuid from "uuid";
+import {TrucksApiService} from "../../api/services/trucks-api.service";
+import {TruckOutput} from "../../api/models/truck-output";
+import {TruckInput} from "../../api/models/truck-input";
+import {TruckModelType} from "../../api/models/truck-model-type";
+import {TruckModelOutput} from "../../api/models/truck-model-output";
+import {TrucksModelsApiService} from "../../api/services/trucks-models-api.service";
 
 @Component({
   selector: 'app-trucks-editor-modal',
@@ -9,12 +16,21 @@ import {MatDialogRef} from "@angular/material/dialog";
 })
 export class TrucksEditorModalComponent {
   public form!: FormGroup;
+  public truckModels: TruckModelOutput[] = [];
+
+  public readonly TruckModelType = TruckModelType;
+
+  private isCreating = false;
+  private currentYear = Number(new Date().getFullYear());
 
   public get canSave(): boolean {
     return this.form.valid && this.form.dirty;
   }
 
-  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<TrucksEditorModalComponent>) {
+  constructor(private formBuilder: FormBuilder, private matDialogRef: MatDialogRef<TrucksEditorModalComponent>,
+              private service: TrucksApiService, @Inject(MAT_DIALOG_DATA) private truck: TruckOutput,
+              private trucksModelService: TrucksModelsApiService) {
+    this.isCreating = !truck;
     this.createForm();
   }
 
@@ -23,16 +39,32 @@ export class TrucksEditorModalComponent {
   }
 
   public save(): void {
-    this.matDialogRef.close();
+    const input: TruckInput = this.form.getRawValue();
+
+    const action = this.isCreating ? this.service.create(input) : this.service.update(input.id, input);
+
+    action.subscribe(() => {
+      this.matDialogRef.close();
+    });
   }
 
   private createForm(): void {
-    const currentYear = Number(new Date().getFullYear());
+    if (this.isCreating) {
+      this.truck = {
+        id: uuid.v4(),
+        manufacturingYear: this.currentYear,
+      };
+    }
 
     this.form = this.formBuilder.group({
-      licensePlate: [],
-      model: [null, [Validators.required]],
-      manufacturingYear: [currentYear, [Validators.required]],
+      id: [this.truck.id, [Validators.required]],
+      licensePlate: [this.truck.licensePlate],
+      modelId: [this.truck.modelId, [Validators.required]],
+      manufacturingYear: [this.truck.manufacturingYear, [Validators.required]],
     });
+
+    this.trucksModelService.getList().subscribe((trucksModels: TruckModelOutput[]) => {
+      this.truckModels = trucksModels;
+    })
   }
 }

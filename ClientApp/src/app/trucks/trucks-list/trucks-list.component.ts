@@ -3,6 +3,9 @@ import {MatDialog} from "@angular/material/dialog";
 
 import {TrucksService} from "../trucks.service";
 import {TrucksEditorModalComponent} from "./trucks-editor-modal/trucks-editor-modal.component";
+import {TrucksApiService} from "../api/services/trucks-api.service";
+import {TruckModelOutput} from "../api/models/truck-model-output";
+import {TruckOutput} from "../api/models/truck-output";
 
 @Component({
   selector: 'app-trucks-list',
@@ -12,17 +15,21 @@ import {TrucksEditorModalComponent} from "./trucks-editor-modal/trucks-editor-mo
 export class TrucksListComponent implements AfterViewInit {
   @ViewChild('TrucksListHeader') private headerTemplate!: TemplateRef<any>;
 
-  public columns: string[] = ['licensePlate', 'modelName', 'modelYear', 'manufacturingYear'];
+  public columns: string[] = ['actions', 'licensePlate', 'modelName', 'modelYear', 'manufacturingYear'];
+  public trucks: TruckOutput[] = [];
 
-  constructor(private trucksService: TrucksService, private matDialog: MatDialog) {
+  constructor(private trucksService: TrucksService, private matDialog: MatDialog,
+              private service: TrucksApiService) {
+    this.getTrucks();
   }
 
   ngAfterViewInit(): void {
     this.emitHeaderTemplate();
   }
 
-  public addTruck(): void {
+  public openTruckEditor(truck?: TruckOutput): void {
     this.matDialog.open(TrucksEditorModalComponent, {
+      data: truck,
       hasBackdrop: true,
       height: 'calc(100% - 64px)',
       width: '40%',
@@ -30,6 +37,22 @@ export class TrucksListComponent implements AfterViewInit {
         right: '0',
         bottom: '0',
       }
+    });
+  }
+
+  public update(truckModel: TruckModelOutput): void {
+    this.openTruckEditor(truckModel);
+  }
+
+  public delete(truckModel: TruckModelOutput): void {
+    this.service.delete(truckModel.id).subscribe(() => {
+      this.getTrucks();
+    });
+  }
+
+  private getTrucks(): void {
+    this.service.getList().subscribe((trucks: TruckOutput[]) => {
+      this.trucks = trucks;
     });
   }
 

@@ -3,6 +3,11 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+mat-form-field div.mat-form-field-flex {
+  padding-left: 0 !important;
+  background-color: #fff !important;
+}
+
 .header {
   min-height: 40px;
   border-bottom: 0.5px solid #cacaca;

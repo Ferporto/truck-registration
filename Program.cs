@@ -5,11 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<Context>(options => options
     .UseSqlServer("Data Source=.;Initial Catalog=Truck_Registration;Integrated Security=True;"));
-
 
 var app = builder.Build();
 
@@ -23,12 +22,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html");;
-
+app.MapControllers();
+app.MapFallbackToFile("index.html");
 app.Run();
