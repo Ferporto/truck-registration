@@ -13,6 +13,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 
 import {AppComponent} from './app.component';
 import {FetchDataComponent} from './fetch-data/fetch-data.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {FetchDataComponent} from './fetch-data/fetch-data.component';
     MatIconModule,
     MatTooltipModule,
     MatDialogModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {
         path: '',

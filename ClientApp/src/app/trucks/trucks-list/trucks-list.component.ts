@@ -1,5 +1,8 @@
-import {AfterViewInit, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
+
 import {TrucksService} from "../trucks.service";
+import {TrucksEditorModalComponent} from "./trucks-editor-modal/trucks-editor-modal.component";
 
 @Component({
   selector: 'app-trucks-list',
@@ -11,7 +14,7 @@ export class TrucksListComponent implements AfterViewInit {
 
   public colunas: string[] = ['produto', 'quantidade', 'valorUnitario', 'valorTotal'];
 
-  constructor(private trucksService: TrucksService) {
+  constructor(private trucksService: TrucksService, private matDialog: MatDialog) {
   }
 
   ngAfterViewInit(): void {
@@ -19,7 +22,15 @@ export class TrucksListComponent implements AfterViewInit {
   }
 
   public addTruck(): void {
-    console.log('AAAA');
+    this.matDialog.open(TrucksEditorModalComponent, {
+      hasBackdrop: true,
+      height: 'calc(100% - 64px)',
+      width: '40%',
+      position: {
+        right: '0',
+        bottom: '0',
+      }
+    });
   }
 
   private emitHeaderTemplate(): void {

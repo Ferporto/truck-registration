@@ -1,0 +1,36 @@
+<div class="header">
+  <span>
+    Cadastrar Caminhão
+  </span>
+  <button (click)="closeModal()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div class="content">
+  <div class="form">
+    <form [formGroup]="form">
+      <div class="group-1">
+        <mat-form-field>
+          <mat-label>Placa</mat-label>
+          <input matInput formControlName="licensePlate" [required]="true">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Modelo</mat-label>
+          <input matInput formControlName="model" [required]="true">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Ano de Fabricação</mat-label>
+          <input matInput formControlName="manufacturingYear" [required]="true">
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="footer">
+  <button [disabled]="!canSave" (click)="save()" mat-raised-button color="primary">Salvar</button>
+</div>
