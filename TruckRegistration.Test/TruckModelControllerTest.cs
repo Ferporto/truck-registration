@@ -12,58 +12,6 @@ namespace TruckRegistration.Test;
 public class TruckModelControllerTest
 {
     [Fact]
-    public async Task GetList()
-    {
-        // Arrange  
-        var mockedTruckModelModelRepository = new Mock<ITruckModelModelRepository>();
-
-        var modelId = Guid.Parse("349ACCF3-B94F-4C7C-B2A1-3137D30A97E8");
-        var expectedTruckModels = new List<TruckModel>
-        {
-            new()
-            {
-                Id = modelId,
-                Name = "Model 01",
-                Type = TruckModelType.Fh,
-                Year = 2022
-            }
-        };
-        
-        mockedTruckModelModelRepository.Setup(repository => repository.GetAll())
-            .Returns(expectedTruckModels.AsQueryable());
-
-        var controller = new TruckModelController(mockedTruckModelModelRepository.Object);
-
-        // Act
-        var output = await controller.GetList();
-
-        // Assert
-        var expectedTruckModel = expectedTruckModels[0];
-        var expectedOutput = new TruckModelOutput
-        {
-            Id = expectedTruckModel.Id,
-            Name = expectedTruckModel.Name,
-            Type = expectedTruckModel.Type,
-            Year = expectedTruckModel.Year,
-        };
-
-        var okResult = output as OkObjectResult;
-        Assert.NotNull(okResult);
-        Assert.True(okResult.StatusCode == (int)HttpStatusCode.OK);
-
-        var okResultValue = okResult.Value as List<TruckModelOutput>;
-        Assert.True(okResultValue.Count == 1);
-
-        var okResultValue1 = okResultValue[0];
-        Assert.True(okResultValue1.Id == expectedOutput.Id);
-        Assert.True(okResultValue1.Name == expectedOutput.Name);
-        Assert.True(okResultValue1.Type == expectedOutput.Type);
-        Assert.True(okResultValue1.Year == expectedOutput.Year);
-
-        mockedTruckModelModelRepository.Verify(repository => repository.GetAll(), Times.Once);
-    }
-
-    [Fact]
     public async Task Get()
     {
         // Arrange  
